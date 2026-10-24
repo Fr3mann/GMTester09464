@@ -2,7 +2,7 @@ package ru.gr09462.tester09464
 
 import kotlin.random.Random
 
-class CardData() {
+class CardData {
     val arg1: Int
     val arg2: Int
     val operation: Operation
@@ -10,7 +10,9 @@ class CardData() {
     var userRes: Int? = null
     val isAnswerCorrect: Boolean?
         get() = userRes?.let{it == correctRes}
-    
+    val task: String
+        get() = "$arg1 ${operation.symb} ${if (arg2 < 0) "($arg2)" else arg2} ="
+
     init {
         operation = Operation.entries.random()
         when(operation){
