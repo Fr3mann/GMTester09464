@@ -1,39 +1,233 @@
 package ru.gr09462.tester09464
 
-import kotlin.random.Random
-
-class CardData {
-    val arg1: Int
-    val arg2: Int
-    val operation: Operation
-    private val correctRes: Int
-    var userRes: Int? = null
+data class FrenchQuestion(
+    val frenchtext: String,
+    val russiantranslations: Set<String>,
+)
+object FrenchQuestionDatabase{
+    val questions = listOf(
+        FrenchQuestion("bonjour", setOf("привет", "здравствуйте", "добрый день")),
+        FrenchQuestion("salut", setOf("привет", "пока")),
+        FrenchQuestion("bonsoir", setOf("добрый вечер")),
+        FrenchQuestion("bonne nuit", setOf("спокойной ночи")),
+        FrenchQuestion("au revoir", setOf("до свидания")),
+        FrenchQuestion("à bientôt", setOf("до скорого", "до скорой встречи")),
+        FrenchQuestion("à demain", setOf("до завтра")),
+        FrenchQuestion("merci", setOf("спасибо")),
+        FrenchQuestion("merci beaucoup", setOf("большое спасибо")),
+        FrenchQuestion("s'il vous plaît", setOf("пожалуйста")),
+        FrenchQuestion("s'il te plaît", setOf("пожалуйста")),
+        FrenchQuestion("pardon", setOf("извините", "простите")),
+        FrenchQuestion("excusez-moi", setOf("извините", "простите")),
+        FrenchQuestion("oui", setOf("да")),
+        FrenchQuestion("non", setOf("нет")),
+        FrenchQuestion("peut-être", setOf("может быть")),
+        FrenchQuestion("d'accord", setOf("хорошо", "согласен", "согласна")),
+        FrenchQuestion("bien sûr", setOf("конечно")),
+        FrenchQuestion("je ne sais pas", setOf("я не знаю")),
+        FrenchQuestion("je comprends", setOf("я понимаю")),
+        FrenchQuestion("je ne comprends pas", setOf("я не понимаю")),
+        FrenchQuestion("comment ça va ?", setOf("как дела")),
+        FrenchQuestion("ça va", setOf("хорошо", "нормально")),
+        FrenchQuestion("très bien", setOf("очень хорошо")),
+        FrenchQuestion("mal", setOf("плохо")),
+        FrenchQuestion("aujourd'hui", setOf("сегодня")),
+        FrenchQuestion("demain", setOf("завтра")),
+        FrenchQuestion("hier", setOf("вчера")),
+        FrenchQuestion("maintenant", setOf("сейчас", "теперь")),
+        FrenchQuestion("toujours", setOf("всегда")),
+        FrenchQuestion("jamais", setOf("никогда")),
+        FrenchQuestion("souvent", setOf("часто")),
+        FrenchQuestion("parfois", setOf("иногда")),
+        FrenchQuestion("ici", setOf("здесь", "тут")),
+        FrenchQuestion("là-bas", setOf("там")),
+        FrenchQuestion("où", setOf("где", "куда")),
+        FrenchQuestion("quand", setOf("когда")),
+        FrenchQuestion("pourquoi", setOf("почему", "зачем")),
+        FrenchQuestion("comment", setOf("как")),
+        FrenchQuestion("combien", setOf("сколько")),
+        FrenchQuestion("qui", setOf("кто")),
+        FrenchQuestion("quoi", setOf("что")),
+        FrenchQuestion("quel", setOf("какой")),
+        FrenchQuestion("quelle", setOf("какая")),
+        FrenchQuestion("parce que", setOf("потому что")),
+        FrenchQuestion("avec", setOf("с", "вместе с")),
+        FrenchQuestion("sans", setOf("без")),
+        FrenchQuestion("pour", setOf("для", "за")),
+        FrenchQuestion("dans", setOf("в", "внутри")),
+        FrenchQuestion("sur", setOf("на", "над")),
+        FrenchQuestion("sous", setOf("под")),
+        FrenchQuestion("devant", setOf("перед")),
+        FrenchQuestion("derrière", setOf("за", "позади")),
+        FrenchQuestion("entre", setOf("между")),
+        FrenchQuestion("près de", setOf("рядом с", "близко к")),
+        FrenchQuestion("loin", setOf("далеко")),
+        FrenchQuestion("maison", setOf("дом")),
+        FrenchQuestion("appartement", setOf("квартира")),
+        FrenchQuestion("chambre", setOf("комната", "спальня")),
+        FrenchQuestion("cuisine", setOf("кухня")),
+        FrenchQuestion("salle de bains", setOf("ванная", "ванная комната")),
+        FrenchQuestion("porte", setOf("дверь")),
+        FrenchQuestion("fenêtre", setOf("окно")),
+        FrenchQuestion("table", setOf("стол")),
+        FrenchQuestion("chaise", setOf("стул")),
+        FrenchQuestion("lit", setOf("кровать")),
+        FrenchQuestion("livre", setOf("книга")),
+        FrenchQuestion("stylo", setOf("ручка")),
+        FrenchQuestion("crayon", setOf("карандаш")),
+        FrenchQuestion("papier", setOf("бумага")),
+        FrenchQuestion("école", setOf("школа")),
+        FrenchQuestion("université", setOf("университет")),
+        FrenchQuestion("professeur", setOf("учитель", "преподаватель")),
+        FrenchQuestion("étudiant", setOf("студент", "учащийся")),
+        FrenchQuestion("ami", setOf("друг")),
+        FrenchQuestion("amie", setOf("подруга")),
+        FrenchQuestion("famille", setOf("семья")),
+        FrenchQuestion("mère", setOf("мать", "мама")),
+        FrenchQuestion("père", setOf("отец", "папа")),
+        FrenchQuestion("frère", setOf("брат")),
+        FrenchQuestion("sœur", setOf("сестра")),
+        FrenchQuestion("enfant", setOf("ребёнок", "ребенок")),
+        FrenchQuestion("homme", setOf("мужчина")),
+        FrenchQuestion("femme", setOf("женщина")),
+        FrenchQuestion("personne", setOf("человек", "никто")),
+        FrenchQuestion("eau", setOf("вода")),
+        FrenchQuestion("pain", setOf("хлеб")),
+        FrenchQuestion("lait", setOf("молоко")),
+        FrenchQuestion("café", setOf("кофе")),
+        FrenchQuestion("thé", setOf("чай")),
+        FrenchQuestion("sucre", setOf("сахар")),
+        FrenchQuestion("sel", setOf("соль")),
+        FrenchQuestion("pomme", setOf("яблоко")),
+        FrenchQuestion("orange", setOf("апельсин", "оранжевый")),
+        FrenchQuestion("fromage", setOf("сыр")),
+        FrenchQuestion("viande", setOf("мясо")),
+        FrenchQuestion("poisson", setOf("рыба")),
+        FrenchQuestion("poulet", setOf("курица", "цыплёнок", "цыпленок")),
+        FrenchQuestion("riz", setOf("рис")),
+        FrenchQuestion("fruit", setOf("фрукт")),
+        FrenchQuestion("légume", setOf("овощ")),
+        FrenchQuestion("restaurant", setOf("ресторан")),
+        FrenchQuestion("menu", setOf("меню")),
+        FrenchQuestion("addition", setOf("счёт", "счет")),
+        FrenchQuestion("argent", setOf("деньги")),
+        FrenchQuestion("prix", setOf("цена", "стоимость")),
+        FrenchQuestion("magasin", setOf("магазин")),
+        FrenchQuestion("marché", setOf("рынок")),
+        FrenchQuestion("voiture", setOf("машина", "автомобиль")),
+        FrenchQuestion("bus", setOf("автобус")),
+        FrenchQuestion("train", setOf("поезд")),
+        FrenchQuestion("métro", setOf("метро")),
+        FrenchQuestion("gare", setOf("вокзал", "станция")),
+        FrenchQuestion("aéroport", setOf("аэропорт")),
+        FrenchQuestion("billet", setOf("билет")),
+        FrenchQuestion("rue", setOf("улица")),
+        FrenchQuestion("ville", setOf("город")),
+        FrenchQuestion("village", setOf("деревня", "село")),
+        FrenchQuestion("pays", setOf("страна")),
+        FrenchQuestion("France", setOf("франция")),
+        FrenchQuestion("temps", setOf("время", "погода")),
+        FrenchQuestion("jour", setOf("день")),
+        FrenchQuestion("semaine", setOf("неделя")),
+        FrenchQuestion("mois", setOf("месяц")),
+        FrenchQuestion("année", setOf("год")),
+        FrenchQuestion("heure", setOf("час")),
+        FrenchQuestion("minute", setOf("минута")),
+        FrenchQuestion("matin", setOf("утро")),
+        FrenchQuestion("après-midi", setOf("день", "вторая половина дня")),
+        FrenchQuestion("soir", setOf("вечер")),
+        FrenchQuestion("nuit", setOf("ночь")),
+        FrenchQuestion("lundi", setOf("понедельник")),
+        FrenchQuestion("mardi", setOf("вторник")),
+        FrenchQuestion("mercredi", setOf("среда")),
+        FrenchQuestion("jeudi", setOf("четверг")),
+        FrenchQuestion("vendredi", setOf("пятница")),
+        FrenchQuestion("samedi", setOf("суббота")),
+        FrenchQuestion("dimanche", setOf("воскресенье")),
+        FrenchQuestion("grand", setOf("большой", "высокий")),
+        FrenchQuestion("petit", setOf("маленький", "небольшой")),
+        FrenchQuestion("beau", setOf("красивый")),
+        FrenchQuestion("joli", setOf("красивый", "симпатичный")),
+        FrenchQuestion("bon", setOf("хороший", "добрый")),
+        FrenchQuestion("mauvais", setOf("плохой")),
+        FrenchQuestion("nouveau", setOf("новый")),
+        FrenchQuestion("vieux", setOf("старый")),
+        FrenchQuestion("jeune", setOf("молодой")),
+        FrenchQuestion("facile", setOf("лёгкий", "легкий", "простой")),
+        FrenchQuestion("difficile", setOf("трудный", "сложный")),
+        FrenchQuestion("chaud", setOf("горячий", "жаркий")),
+        FrenchQuestion("froid", setOf("холодный")),
+        FrenchQuestion("rapide", setOf("быстрый")),
+        FrenchQuestion("lent", setOf("медленный")),
+        FrenchQuestion("heureux", setOf("счастливый")),
+        FrenchQuestion("triste", setOf("грустный", "печальный")),
+        FrenchQuestion("fatigué", setOf("уставший")),
+        FrenchQuestion("occupé", setOf("занятый")),
+        FrenchQuestion("libre", setOf("свободный")),
+        FrenchQuestion("important", setOf("важный")),
+        FrenchQuestion("intéressant", setOf("интересный")),
+        FrenchQuestion("cher", setOf("дорогой")),
+        FrenchQuestion("gratuit", setOf("бесплатный")),
+        FrenchQuestion("ouvert", setOf("открытый")),
+        FrenchQuestion("fermé", setOf("закрытый")),
+        FrenchQuestion("rouge", setOf("красный")),
+        FrenchQuestion("bleu", setOf("синий", "голубой")),
+        FrenchQuestion("vert", setOf("зелёный", "зеленый")),
+        FrenchQuestion("blanc", setOf("белый")),
+        FrenchQuestion("noir", setOf("чёрный", "черный")),
+        FrenchQuestion("être", setOf("быть")),
+        FrenchQuestion("avoir", setOf("иметь")),
+        FrenchQuestion("aller", setOf("идти", "ехать")),
+        FrenchQuestion("venir", setOf("приходить", "приезжать")),
+        FrenchQuestion("faire", setOf("делать")),
+        FrenchQuestion("parler", setOf("говорить")),
+        FrenchQuestion("manger", setOf("есть", "кушать")),
+        FrenchQuestion("boire", setOf("пить")),
+        FrenchQuestion("aimer", setOf("любить", "нравиться")),
+        FrenchQuestion("vouloir", setOf("хотеть")),
+        FrenchQuestion("pouvoir", setOf("мочь")),
+        FrenchQuestion("devoir", setOf("должен", "быть должным")),
+        FrenchQuestion("savoir", setOf("знать", "уметь")),
+        FrenchQuestion("connaître", setOf("знать", "быть знакомым")),
+        FrenchQuestion("comprendre", setOf("понимать")),
+        FrenchQuestion("apprendre", setOf("учить", "изучать", "узнавать")),
+        FrenchQuestion("lire", setOf("читать")),
+        FrenchQuestion("écrire", setOf("писать")),
+        FrenchQuestion("écouter", setOf("слушать")),
+        FrenchQuestion("regarder", setOf("смотреть")),
+        FrenchQuestion("travailler", setOf("работать")),
+        FrenchQuestion("étudier", setOf("учиться", "изучать")),
+        FrenchQuestion("dormir", setOf("спать")),
+        FrenchQuestion("sortir", setOf("выходить")),
+        FrenchQuestion("prendre", setOf("брать", "взять")),
+        FrenchQuestion("mettre", setOf("класть", "надевать", "ставить")),
+        FrenchQuestion("acheter", setOf("покупать")),
+        FrenchQuestion("payer", setOf("платить", "оплачивать")),
+        FrenchQuestion("chercher", setOf("искать")),
+        FrenchQuestion("trouver", setOf("находить")),
+        FrenchQuestion("donner", setOf("давать")),
+        FrenchQuestion("demander", setOf("спрашивать", "просить")),
+        FrenchQuestion("répondre", setOf("отвечать")),
+        FrenchQuestion("attendre", setOf("ждать")),
+        FrenchQuestion("ouvrir", setOf("открывать")),
+        FrenchQuestion("fermer", setOf("закрывать")),
+        FrenchQuestion("marcher", setOf("ходить", "гулять")),
+        FrenchQuestion("courir", setOf("бегать")),
+        FrenchQuestion("jouer", setOf("играть")),
+        FrenchQuestion("voyager", setOf("путешествовать")),
+        FrenchQuestion("oublier", setOf("забывать")),
+        FrenchQuestion("se souvenir", setOf("помнить", "вспоминать")),
+    )
+}
+class CardData(question: FrenchQuestion) {
+    val task: String = question.frenchtext
+    private val correctAnswers: Set<String> = question.russiantranslations
+    var userRes: String? = null
     val isAnswerCorrect: Boolean?
-        get() = userRes?.let{it == correctRes}
-    val task: String
-        get() = "$arg1 ${operation.symb} ${if (arg2 < 0) "($arg2)" else arg2} ="
-
-    init {
-        operation = Operation.entries.random()
-        when(operation){
-            Operation.PLUS,
-            Operation.MINUS-> {
-                arg1 = Random.nextInt(-50, 51)
-                arg2 = Random.nextInt(-50, 51)
-                correctRes = if (operation == Operation.PLUS) arg1 + arg2 else arg1 - arg2
+        get() = userRes?.trim()
+            ?.lowercase()
+            ?.replace("ё","е")
+            ?.let { answer -> correctAnswers.any {
+                it.trim().lowercase() == answer }
             }
-
-            Operation.TIMES -> {
-                arg1 = Random.nextInt(-10, 11)
-                arg2 = Random.nextInt(-10, 11)
-                correctRes = arg1 * arg2
-            }
-
-            Operation.DIV -> {
-                correctRes = Random.nextInt(1, 11) * setOf(-1, 1).random()
-                arg2 = Random.nextInt(1, 11) * setOf(-1,1).random()
-                arg1 = correctRes * arg2
-            }
-        }
-    }
 }

@@ -3,7 +3,7 @@ package ru.gr09462.tester09464
 import androidx.compose.ui.graphics.Color
 
 class CardState(
-    val card: CardData = CardData(),
+    val card: CardData,
 ) {
     val color: Color
         get() = card.isAnswerCorrect?.let{

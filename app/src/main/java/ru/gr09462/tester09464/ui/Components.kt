@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -37,62 +38,55 @@ fun TestCard(
     color: Color = Color.Transparent,
     onUserInput: (String) -> Unit = {},
     onAnswer: () -> Unit = {},
-){
-
+) {
     ElevatedCard(
         modifier = modifier,
-        colors = CardDefaults.elevatedCardColors(
-            containerColor = color
-        )
-    ){
+        colors = CardDefaults.elevatedCardColors(containerColor = color),
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ){
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = cardData.task,
+                textAlign = TextAlign.Center,
+                fontSize = 29.sp,
+            )
+            Text(
+                text = "Переведите слово или выражение на русский",
+                textAlign = TextAlign.Center,
+                fontSize = 13.sp,
+            )
             Row(
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                Text(
-                    cardData.task,
-                    modifier = Modifier.weight(2f),
-                    textAlign = TextAlign.Center,
-                    fontSize = 38.sp
-                )
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
                 OutlinedTextField(
                     value = userInput,
                     onValueChange = onUserInput,
                     modifier = Modifier.weight(1f),
                     textStyle = TextStyle(
-                        fontSize = 30.sp,
-                        textAlign = TextAlign.Center
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Center,
                     ),
+                    label = { Text("Перевод") },
                     enabled = isActive,
+                    singleLine = true,
                 )
-            }
-            IconButton(
-                onClick = onAnswer,
-                enabled = isActive,
-            ){
-                Icon(
-                    painter = painterResource(R.drawable.set_answer_32),
-                    contentDescription = null,
-                    tint = if (isActive) Color.Green else Color.Gray
-                )
+                IconButton(
+                    onClick = onAnswer,
+                    enabled = isActive,
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.set_answer_32),
+                        contentDescription = "Проверить ответ",
+                        tint = if (isActive) Color.Green else Color.Gray,
+                    )
+                }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun TestCardPreview(){
-    val c = CardData()
-    Tester09464Theme(
-        darkTheme = true
-    ){
-        TestCard(c, "")
     }
 }
