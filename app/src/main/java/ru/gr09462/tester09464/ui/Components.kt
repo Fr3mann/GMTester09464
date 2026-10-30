@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.gr09462.tester09464.CardData
+import ru.gr09462.tester09464.FrenchQuestionDatabase
 import ru.gr09462.tester09464.R
 import ru.gr09462.tester09464.ui.theme.Tester09464Theme
 
@@ -88,5 +89,20 @@ fun TestCard(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TestCardPreview() {
+    Tester09464Theme {
+        TestCard(
+            cardData = CardData(
+                question = FrenchQuestionDatabase.questions[0]
+            ),
+            userInput = "Привет",
+            isActive = true,
+            color = Color.Transparent
+        )
     }
 }
